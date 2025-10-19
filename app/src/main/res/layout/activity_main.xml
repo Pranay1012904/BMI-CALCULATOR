@@ -87,12 +87,20 @@
         android:text="CALCULATE" />
 
     <TextView
+        android:id="@+id/text_view_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="STATUS"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="16dp" />
+    <TextView
         android:id="@+id/text_view_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:text="RESULT"
         android:textColor="@color/material_dynamic_neutral0"
-        android:textSize="20dp" />
+        android:textSize="16dp" />
 </LinearLayout>
 

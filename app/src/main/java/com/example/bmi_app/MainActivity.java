@@ -6,13 +6,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 
 import com.example.bmi_app.constants.AppConstants;
 
@@ -25,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText weight;
     private EditText feet;
     private EditText inch;
+    private TextView status;
     private Button calculateButton;
 
     @Override
@@ -58,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         String fetchedWeight = weight.getText().toString();
         String fetchedFeet = feet.getText().toString();
         String fetchedInch = inch.getText().toString();
-        String gender;
 
         int fInch = Integer.parseInt(fetchedInch);
         int fAge = Integer.parseInt(fetchedAge);
@@ -66,10 +61,40 @@ public class MainActivity extends AppCompatActivity {
         int fWeight = Integer.parseInt(fetchedWeight);
         double heightInMeter = ((fFeet * 12) + fInch) * 0.0254;
         double bmi = fWeight / Math.pow(heightInMeter, 2);
-        result.setText(String.format("Calculated BMI :: %.2f",bmi));
+        if (male.isChecked()) {
+            maleBMIResult(bmi);
+        } else if (female.isChecked()) {
+            femaleBMIResult(bmi);
+        }
+        result.setText(String.format("Calculated BMI :: %.2f", bmi));
+    }
+
+    private void femaleBMIResult(double bmi) {
+        if(bmi<18.5){
+            status.setText(AppConstants.UNDERWEIGHT);
+        }else if(bmi>=18.5 && bmi<24.9){
+            status.setText(AppConstants.NORMAL);
+        }else if(bmi>=25 && bmi<29.9){
+            status.setText(AppConstants.OVERWEIGHT);
+        }else{
+            status.setText(AppConstants.OBESE);
+        }
+    }
+
+    private void maleBMIResult(double bmi) {
+        if(bmi<18.5){
+            status.setText(AppConstants.UNDERWEIGHT);
+        }else if(bmi>=18.5 && bmi<24.9){
+            status.setText(AppConstants.NORMAL);
+        }else if(bmi>=25 && bmi<29.9){
+            status.setText(AppConstants.OVERWEIGHT);
+        }else{
+            status.setText(AppConstants.OBESE);
+        }
     }
 
     private void findView() {
+        status = findViewById(R.id.text_view_status);
         result = findViewById(R.id.text_view_result);
         male = findViewById(R.id.radio_button_male);
         female = findViewById(R.id.radio_button_female);
